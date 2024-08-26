@@ -2,10 +2,18 @@
 
 import requests
 
-endpoint = "http://localhost:8000/api/products/1/"
+endpoint = "http://localhost:8000/api/products/"
 
 #, json= {"title" : "hello hello world!", "content" : "hello", "price": "12"}
-get_response = requests.get(endpoint)
+data = {
+    "title" : "hello hello world!",
+    "price": "12"
+}
+get_response = requests.post(endpoint, json = {
+    "title" : "hello hello world!",
+    "price": "12"
+})
+
 
 try:
     print(get_response.json())
