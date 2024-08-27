@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,20 +20,76 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         if content is None:
             content = title
         serializer.save(content=content)
+        #lookup_field = 'pk'
+
 
 class ProductDetailAPIView(generics.RetrieveAPIView): 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    #lookup_field = 'pk'
+
     
     #or we can product_detial_view = ProductDetailAPIView.as_view()
     
+# Update view ##############
 
-class ProductListAPIView(generics.ListAPIView): 
-    """_
-    no going to use it cause we can make list and create togather
-    """
+class ProductUpdateAPIView(generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    lookup_field = 'pk'
+    
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        if not instance.content:
+            instance.content = instance.title 
+            
+class ProductDestroyAPIView(generics.DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'pk'
+    
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+    
+
+# class ProductListAPIView(generics.ListAPIView): 
+#     """_
+#     no going to use it cause we can make list and create togather
+#     """
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     #lookup_field = 'pk'
+    
+class ProductMixinsView(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    generics.GenericAPIView
+    ): 
+    
+    queryset = Product.objects.all()
+    serializer_class =  ProductSerializer
+    lookup_field = 'pk'
+    
+    def get(self, request, *args, **kwargs):
+        print(args)
+        print(kwargs)
+        pk = kwargs.get("pk")
+        if pk is not None:
+            return self.retrieve(request, *args, **kwargs)
+        return self.list(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    #it will get perform here because createapiview extents createmodelmixins
+    def perform_create(self, serializer):
+        print(serializer.validated_data)
+        title = serializer.validated_data.get('title')
+        content = serializer.validated_data.get('content')or None
+        if content is None:
+            content = 'single view doing something mind blowing'
+        serializer.save(content=content)
+
 
 
 #if we don't use generic views  (normal life)
@@ -68,4 +124,7 @@ def product_alt_view(request, pk=None, *args, **kwargs):
             print(serializer.data)
             return Response(serializer.data)
         return Response({"invalid": "not good data"}, status= 404)
+    
+
+
         
