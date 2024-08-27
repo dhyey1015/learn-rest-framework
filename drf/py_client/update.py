@@ -2,7 +2,7 @@
 
 import requests
 
-endpoint = "http://localhost:8000/api/products/1/update/"
+endpoint = "http://localhost:8000/api/products/2/update/"
 
 #, json= {"title" : "hello hello world!", "content" : "hello", "price": "12"}
 

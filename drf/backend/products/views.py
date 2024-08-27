@@ -6,8 +6,39 @@ from .models import Product
 from .serializers import ProductSerializer
 from django.shortcuts import get_object_or_404
 
-
-
+#if we don't use generic views  (normal life)
+@api_view(['GET', 'POST'])
+def product_alt_view(request, pk=None, *args, **kwargs):
+    method = request.method
+    
+    if method == 'GET':
+        #detail view
+        if pk is not None:
+            # queryset = Product.objects.filter(pk=pk) one way to do it 
+            # if not queryset.exists():
+            #     raise Http404
+            obj = get_object_or_404(Product, pk = pk)
+            data = ProductSerializer(obj, many=False).data
+            return Response(data)
+            
+        #listview    
+        queryset = Product.objects.all()
+        data = ProductSerializer(queryset, many=True).data
+        return Response(data)
+    
+    if method == 'POST':
+        #create an item
+        serializer = ProductSerializer(data = request.data)
+        if serializer.is_valid(raise_exception=True):
+            title = serializer.validated_data.get('title')
+            content = serializer.validated_data.get('content')or None
+            if content is None:
+                content = title
+            serializer.save(content=content)
+            print(serializer.data)
+            return Response(serializer.data)
+        return Response({"invalid": "not good data"}, status= 404)
+    
 #if we use generic views(mentos life)
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
@@ -90,40 +121,6 @@ class ProductMixinsView(
             content = 'single view doing something mind blowing'
         serializer.save(content=content)
 
-
-
-#if we don't use generic views  (normal life)
-@api_view(['GET', 'POST'])
-def product_alt_view(request, pk=None, *args, **kwargs):
-    method = request.method
-    
-    if method == 'GET':
-        #detail view
-        if pk is not None:
-            # queryset = Product.objects.filter(pk=pk) one way to do it 
-            # if not queryset.exists():
-            #     raise Http404
-            obj = get_object_or_404(Product, pk = pk)
-            data = ProductSerializer(obj, many=False).data
-            return Response(data)
-            
-        #listview    
-        queryset = Product.objects.all()
-        data = ProductSerializer(queryset, many=True).data
-        return Response(data)
-    
-    if method == 'POST':
-        #create an item
-        serializer = ProductSerializer(data = request.data)
-        if serializer.is_valid(raise_exception=True):
-            title = serializer.validated_data.get('title')
-            content = serializer.validated_data.get('content')or None
-            if content is None:
-                content = title
-            serializer.save(content=content)
-            print(serializer.data)
-            return Response(serializer.data)
-        return Response({"invalid": "not good data"}, status= 404)
     
 
 
