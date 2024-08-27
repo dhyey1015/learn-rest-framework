@@ -3,7 +3,7 @@
 import requests
 
 # endpoint = "http://localhost:8000/api/products/create/"
-endpoint = "http://localhost:8000/api/products/list_mixins/"
+endpoint = "http://localhost:8000/api/products/mixins/"
 
 #, json= {"title" : "hello hello world!", "content" : "hello", "price": "12"}
 data = {
