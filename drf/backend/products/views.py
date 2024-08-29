@@ -44,11 +44,7 @@ def product_alt_view(request, pk=None, *args, **kwargs):
 #if we use generic views(mentos life)
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    authentication_classes = [
-        authentication.SessionAuthentication,
-        TokenAuthentication
-    ]
+    serializer_class = ProductSerializer 
     permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
     
     def perform_create(self, serializer):
