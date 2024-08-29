@@ -2,8 +2,8 @@
 
 import requests
 
-# endpoint = "http://localhost:8000/api/products/2/detail"
-endpoint = "http://localhost:8000/api/products/2/mixins/"
+endpoint = "http://localhost:8000/api/products/2/detail"
+#endpoint = "http://localhost:8000/api/products/2/mixins/"
 
 #, json= {"title" : "hello hello world!", "content" : "hello", "price": "12"}
 

@@ -2,8 +2,8 @@
 
 import requests
 
-#endpoint = "http://localhost:8000/api/products/list/"
-endpoint = "http://localhost:8000/api/products/mixins/"
+endpoint = "http://localhost:8000/api/products/list/"
+#endpoint = "http://localhost:8000/api/products/mixins/"
 
 #, json= {"title" : "hello hello world!", "content" : "hello", "price": "12"}
 get_response = requests.get(endpoint)
