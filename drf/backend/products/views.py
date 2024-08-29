@@ -5,6 +5,7 @@ from rest_framework import status
 from .models import Product
 from .serializers import ProductSerializer
 from django.shortcuts import get_object_or_404
+from .permissions import IsStaffEditorPermission
 
 #if we don't use generic views  (normal life)
 @api_view(['GET', 'POST'])
@@ -44,7 +45,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     authentication_classes = [authentication.SessionAuthentication]
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
     
     def perform_create(self, serializer):
         print(serializer.validated_data)
