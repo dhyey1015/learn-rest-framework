@@ -1,5 +1,6 @@
 ####for generic rest framework(detail)############
 import requests
+headers = {'Authorization': 'Bearer c4ed6c994b6eb7d25bd810d07d6de23937ca35de'}
 
 product_id = input("choose a product id you want to delete? ")
 
@@ -11,7 +12,7 @@ except:
     
 if product_id:
     endpoint = f"http://localhost:8000/api/products/{product_id}/delete/"
-    get_response = requests.delete(endpoint)
+    get_response = requests.delete(endpoint, headers=headers)
 
     try:
         print(get_response.status_code, get_response.status_code == 204)
