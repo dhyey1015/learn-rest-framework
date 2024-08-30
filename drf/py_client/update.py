@@ -3,7 +3,7 @@
 import requests
 headers = {'Authorization': 'Bearer c4ed6c994b6eb7d25bd810d07d6de23937ca35de'}
 
-endpoint = "http://localhost:8000/api/products/2/update/"
+endpoint = "http://localhost:8000/api/products/1/update/"
 
 #, json= {"title" : "hello hello world!", "content" : "hello", "price": "12"}
 
