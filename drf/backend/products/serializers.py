@@ -24,6 +24,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            # 'user',
             'preffered_url',
             'url',
             'edit_url',
