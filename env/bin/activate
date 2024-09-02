@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/dhyey1015/dev/def/env"
+VIRTUAL_ENV="/home/dhyey1015/Documents/learn-rest-framework/drf/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
