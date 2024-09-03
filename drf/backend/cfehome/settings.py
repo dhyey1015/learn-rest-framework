@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -145,7 +146,4 @@ REST_FRAMEWORK = {
     "PAGE_SIZE" : 10
 }
 
-ALGOLIA = {
-  'APPLICATION_ID': 'W1DKE9L5KD',
-  'API_KEY': '10fdea2dd20eee7b671d2f10858b9397'
-}
+ALGOLIA = os.path.join('ALGOLIA')
