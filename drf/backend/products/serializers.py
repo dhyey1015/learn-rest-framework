@@ -2,9 +2,21 @@ from rest_framework import serializers
 from rest_framework.reverse import  reverse 
 from .validators import validate_title, validate_title_no_hello, unique_product_title
 
+from api.serializers import UserPublicSerializer
 from .models import Product
 
+class ProdcuctInlineSerializer(serializers.Serializer): #related serializers can be done with serializers models too
+    preffered_url = serializers.HyperlinkedIdentityField(
+            view_name = 'product_detail',
+            lookup_field ='pk',
+            read_only = True
+    )
+
 class ProductSerializer(serializers.ModelSerializer):
+    
+    owner  = UserPublicSerializer(source = 'user', read_only = True) # use to be --->user = UserPublicSerializer(read_only = True) 
+    my_user_data =serializers.SerializerMethodField(read_only = True)#one way to use related serializers
+    realted_products = ProdcuctInlineSerializer(source = 'user.product_set.all', read_only = True, many=True) #related serializers can be done with serializers models too
     discount = serializers.SerializerMethodField(read_only = True)
     url = serializers.SerializerMethodField(read_only = True)
     edit_url = serializers.SerializerMethodField(read_only = True)
@@ -24,7 +36,9 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
-            # 'user',
+            'owner',
+            #'user', #use to show -->user_id--> changed after added related serializer
+            #'email'
             'preffered_url',
             'url',
             'edit_url',
@@ -35,8 +49,15 @@ class ProductSerializer(serializers.ModelSerializer):
             'price',
             'sale_price',
             'discount',
+            'my_user_data',
+            'realted_products',
             
         ]
+    #one way to use related serializers
+    def get_my_user_data(self, obj):
+        return{
+            "username": obj.user.username
+        }
     #one way to do validate the fields in serializer  we will use it here when we are using context.get 
      
     # def validate_title(self, value):
