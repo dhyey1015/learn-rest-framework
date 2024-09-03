@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -12,7 +12,7 @@ urlpatterns = [
     path('list/', views.ProductListCreateAPIView.as_view(), name="product_list"),
     path('<int:pk>/update/', views.ProductUpdateAPIView.as_view(), name="product_edit"),
     path('<int:pk>/delete/', views.ProductDestroyAPIView.as_view(), name="product_delete"),
-    ##### mixins generic views##########3
+
     path('mixins/', views.ProductMixinsView.as_view()),
     path('<int:pk>/mixins/', views.ProductMixinsView.as_view()),
 ]

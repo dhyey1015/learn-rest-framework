@@ -11,8 +11,8 @@ class UserQuerySetMixins():
     def get_queryset(self,*args, **kwargs):
         lookup_data = {}
         lookup_data[self.user_field] = self.request.user
-        print(lookup_data)
+        # print(lookup_data)
         qs = super().get_queryset(*args, **kwargs)
-        print(qs)
+        # print(qs)
         return qs.filter(**lookup_data)
         

@@ -27,7 +27,7 @@ def api_home(request):
     serializer = ProductSerializer(data = request.data)
     if serializer.is_valid():
         instance = serializer.save()
-        print(instance)
+        # print(instance)
         return Response(serializer.data)
     # return HttpResponse(data, headers = {"Content-Type" : "application/json"})
 
