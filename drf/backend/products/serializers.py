@@ -15,9 +15,9 @@ class ProdcuctInlineSerializer(serializers.Serializer): #related serializers can
 class ProductSerializer(serializers.ModelSerializer):
     
     owner  = UserPublicSerializer(source = 'user', read_only = True) # use to be --->user = UserPublicSerializer(read_only = True) 
-    my_user_data =serializers.SerializerMethodField(read_only = True)#one way to use related serializers
-    realted_products = ProdcuctInlineSerializer(source = 'user.product_set.all', read_only = True, many=True) #related serializers can be done with serializers models too
-    discount = serializers.SerializerMethodField(read_only = True)
+    # my_user_data =serializers.SerializerMethodField(read_only = True)#one way to use related serializers
+    # realted_products = ProdcuctInlineSerializer(source = 'user.product_set.all', read_only = True, many=True) #related serializers can be done with serializers models too
+    # discount = serializers.SerializerMethodField(read_only = True)
     url = serializers.SerializerMethodField(read_only = True)
     edit_url = serializers.SerializerMethodField(read_only = True)
     #preffered method to to use urls in rest frame work
@@ -48,9 +48,9 @@ class ProductSerializer(serializers.ModelSerializer):
             'content',
             'price',
             'sale_price',
-            'discount',
-            'my_user_data',
-            'realted_products',
+            # 'discount',
+            # 'my_user_data',
+            # 'realted_products',
             
         ]
     #one way to use related serializers
