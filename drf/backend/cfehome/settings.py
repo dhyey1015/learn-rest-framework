@@ -147,3 +147,4 @@ REST_FRAMEWORK = {
 }
 
 ALGOLIA = os.path.join('ALGOLIA')
+
