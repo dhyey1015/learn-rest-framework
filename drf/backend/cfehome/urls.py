@@ -16,13 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import ( 
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
 
-from products.views import product_list_create_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
