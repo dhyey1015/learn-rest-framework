@@ -31,6 +31,7 @@ class ProductSerializer(serializers.ModelSerializer):
     #second way to do validate the fields in serializer validate_title is comming from validators.py 
     title = serializers.CharField(validators=[unique_product_title, validate_title_no_hello])
     #name = serializers.CharField(source = 'title', read_only=True) we can use foregionkey too
+    body = serializers.CharField(source = 'content')
      
     
     class Meta:
@@ -45,13 +46,15 @@ class ProductSerializer(serializers.ModelSerializer):
             'pk',
             'title',
             # 'user',
-            'content',
+            'body',  #use to be 'content',
             'price',
             'sale_price',
             'public',
             # 'discount',
             # 'my_user_data',
             # 'realted_products',
+            'path',
+            'endpoint',
             
         ]
     #one way to use related serializers

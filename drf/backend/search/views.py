@@ -6,16 +6,16 @@ from products.serializers import ProductSerializer
 
 from . import client
 
-class SearchListView(generics.GenericAPIView): #agolia search client for django
-    def get(self, request, *args, **kwargs):
-        query  = request.Get.get('q')
-        if not query:
-            return Response('', status=400)
-        results = client.perform_search(query)
-        return Response(results)
+# class SearchListView(generics.GenericAPIView): #agolia search client for django
+#     def get(self, request, *args, **kwargs):
+#         query  = request.Get.get('q')
+#         if not query:
+#             return Response('', status=400)
+#         results = client.perform_search(query)
+#         return Response(results)
 
 
-class SearchListOldView(generics.ListAPIView):
+class SearchListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class =  ProductSerializer
 
