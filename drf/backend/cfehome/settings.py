@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'search',
 
     #third party search
-    'algoliasearch_django',
+    # 'algoliasearch_django',
 ]
 
 MIDDLEWARE = [
@@ -146,5 +146,5 @@ REST_FRAMEWORK = {
     "PAGE_SIZE" : 10
 }
 
-ALGOLIA = os.path.join('ALGOLIA')
+# ALGOLIA = os.path.join('ALGOLIA')
 
