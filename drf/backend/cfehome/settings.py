@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import datetime
 from pathlib import Path
 import os
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'api',
     'products',
     'search',
+    'rest_framework_simplejwt',
 
     #third party search
     # 'algoliasearch_django',
@@ -133,9 +134,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #REST FRAMEWORK settings
 REST_FRAMEWORK = {
+    
     'DEFAULT_AUTHENTICATION_CLASSES': [
         "rest_framework.authentication.SessionAuthentication",
-        "api.authentication.TokenAuthentication"
+        "api.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     
     'DEFAULT_PERMISSION_CLASSES': [
@@ -147,4 +150,10 @@ REST_FRAMEWORK = {
 }
 
 # ALGOLIA = os.path.join('ALGOLIA')
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ["Bearer"],
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(seconds=30),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(minutes=1),
+}
 

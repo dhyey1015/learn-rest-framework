@@ -1,4 +1,5 @@
 # algoliasearch-django>=2.0,<3.0
+djangorestframework-simplejwt
 django
 djangorestframework
 pyyaml

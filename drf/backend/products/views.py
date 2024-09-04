@@ -65,7 +65,8 @@ class ProductListCreateAPIView(
     #     if not user.is_authenticated:
     #         return Product.objects.none
     #     # print(request.user)
-    #     return qs.filter(user=request.user)
+    #     return qs.filter(user=request.user
+product_list_create_view = ProductListCreateAPIView.as_view()
 
 class ProductDetailAPIView(
     StaffEditorPermissionMixin,
