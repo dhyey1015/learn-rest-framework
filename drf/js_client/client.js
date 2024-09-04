@@ -14,13 +14,14 @@ function handleLogin(event){
     let loginFromData = new FormData(loginFrom)
     let loginObjectData = Object.fromEntries(loginFromData)
     console.log(loginObjectData)
+    let bodyyy= JSON.stringify(loginObjectData)
 
     const options = {
         method : "POST",
         headers : {
-            "ContentType" : "application/json"
+            "Content-Type" : "application/json"
         },
-        body : JSON.stringify(loginObjectData)
+        body : bodyyy
     }
 
     fetch(loginEndpoint, options)

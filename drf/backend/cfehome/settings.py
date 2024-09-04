@@ -38,20 +38,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #third party 
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    #'algoliasearch_django',
+    'corsheaders',
+    #apps
     'api',
     'products',
     'search',
-    'rest_framework_simplejwt',
+    
 
-    #third party search
-    # 'algoliasearch_django',
+    
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -60,6 +65,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cfehome.urls'
+
+CORS_URLS_REGEX =r"^/api/.*"
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8111',
+]
 
 TEMPLATES = [
     {
