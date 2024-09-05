@@ -1,10 +1,15 @@
 const contentContainer = document.getElementById('content-container')
 const loginFrom = document.getElementById('login-form')
+const searchFrom = document.getElementById('search-form')
 const baseEndpoint = "http://127.0.0.1:8000/api"
 
 if(loginFrom){
     //handle this login form
     loginFrom.addEventListener('submit', handleLogin)
+}
+if(searchFrom ){
+    //handle this login form
+    searchFrom.addEventListener('submit', handleSearch)
 }
 
 function handleLogin(event){
@@ -33,6 +38,44 @@ function handleLogin(event){
 
     .then(authData => {
         handleAuthData(authData, getProductList)
+    })
+
+    .catch(error =>{
+        console.log(error)
+    }
+    )
+}
+
+function handleSearch(event){
+    event.preventDefault()
+
+    let formData = new FormData(searchFrom)
+    let data = Object.fromEntries(formData)
+    let searchParams = new URLSearchParams(data)
+    const endpoint = `${baseEndpoint}/search/?${searchParams}`
+
+    const headers = {
+        "Content-Type" : "application/json",
+    }
+    const authToken = localStorage.getItem('access')
+    if (authToken){
+        headers['Authorization'] = `Bearer ${authToken}`
+    }
+
+
+    const options = {
+        method : "GET",
+        headers : headers
+    }
+
+    fetch(endpoint, options)
+
+    .then(response =>{
+        return response.json()
+    })
+
+    .then(data => {
+        writeToContainer(data)
     })
 
     .catch(error =>{
@@ -85,7 +128,9 @@ function getProductList(){
     .then(data =>{
         console.log(data)
         const validData = isTokenNotvalid(data)
-        if (validData)
+        if (validData){
+
+        }
         writeToContainer(data)
     })
 }
